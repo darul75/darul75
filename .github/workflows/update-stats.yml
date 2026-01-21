@@ -18,13 +18,10 @@ jobs:
     - name: Generate Top Languages Card
       run: |
         curl -o profile/top-langs.svg "https://github-readme-stats.vercel.app/api/top-langs?username=${{ github.repository_owner }}&layout=compact&theme=radical"
-    - name: Generate Streak Card
-      run: |
-        curl -o profile/streak.svg "https://github-readme-streak-stats.herokuapp.com/?user=${{ github.repository_owner }}&theme=radical"
     - name: Commit Changes
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@users.noreply.github.com"
         git add profile/*.svg
-        git commit -m "Update GitHub stats, top-langs, and streak cards" || exit 0
+          git commit -m "Update GitHub stats and top-langs cards" || exit 0
         git push

@@ -146,7 +146,6 @@ Ready to collaborate? Let's "commit" to a chat!
 <p align="center">
   <img src="./profile/stats.svg" alt="GitHub Stats" />
   <img src="./profile/top-langs.svg" alt="Top Languages" />
-  <img src="./profile/streak.svg" alt="GitHub Streak" />
 </p>
 
 ### 💻 WakaTime Coding Stats
