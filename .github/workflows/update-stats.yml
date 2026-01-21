@@ -7,34 +7,22 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT_TOKEN }}  # Required for committing
-      - name: Generate Stats Card
-        uses: readme-tools/github-readme-stats-action@v1
-        with:
-          card: stats
-          options: username=${{ github.repository_owner }}&show_icons=true&theme=radical
-          path: profile/stats.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Generate Top Languages Card
-        uses: readme-tools/github-readme-stats-action@v1
-        with:
-          card: top-langs
-          options: username=${{ github.repository_owner }}&layout=compact&theme=radical
-          path: profile/top-langs.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Generate Streak Card
-        uses: readme-tools/github-readme-stats-action@v1
-        with:
-          card: streak
-          options: username=${{ github.repository_owner }}&theme=radical
-          path: profile/streak.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Commit Changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
-          git add profile/*.svg
-          git commit -m "Update GitHub stats, top-langs, and streak cards" || exit 0
-          git push
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.PAT_TOKEN }}  # Required for committing
+    - name: Generate Stats Card
+      run: |
+        curl -o profile/stats.svg "https://github-readme-stats.vercel.app/api?username=${{ github.repository_owner }}&show_icons=true&theme=radical"
+    - name: Generate Top Languages Card
+      run: |
+        curl -o profile/top-langs.svg "https://github-readme-stats.vercel.app/api/top-langs?username=${{ github.repository_owner }}&layout=compact&theme=radical"
+    - name: Generate Streak Card
+      run: |
+        curl -o profile/streak.svg "https://github-readme-streak-stats.herokuapp.com/?user=${{ github.repository_owner }}&theme=radical"
+    - name: Commit Changes
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@users.noreply.github.com"
+        git add profile/*.svg
+        git commit -m "Update GitHub stats, top-langs, and streak cards" || exit 0
+        git push
